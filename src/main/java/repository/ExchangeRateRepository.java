@@ -11,7 +11,7 @@ class ExchangeRateChange {
     private LocalDate date;
     private double rate;
 
-    public ExchangeRateChange(LocalDate date, double rate) {
+    public ExchangeRateChange(LocalDate date, double rate) {// TODO ЭТО ВООБЩЕ ЧТО???
         this.date = date;
         this.rate = rate;
     }
@@ -51,7 +51,7 @@ public class ExchangeRateRepository {
     // Удаление курса валюты.
     public void removeRate(String currency) {
         exchangeRates.remove(currency);
-        exchangeRatesHistory.remove(currency); // Удаляем и историю изменений
+        exchangeRatesHistory.remove(currency); // Удаляем и историю изменений TODO А ЗАЧЕМ???
     }
 
     // Обновляем курсы валют, переданные в мапе
