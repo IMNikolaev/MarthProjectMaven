@@ -100,7 +100,10 @@ public class MenuUser {
             case 5: //Обмен валюты (перевод между своими счетами)
                 String firstCurrency = selectCurrency();
                 String secondCurrency = selectCurrency();
-                accountService.transferMoney(id ,firstCurrency ,secondCurrency ,selectCount());
+                double count = selectCount();
+                double commissionBank = (count/100)*accountService.getCommission();
+                System.out.println(COLOR_RED + "Внимание комиссия банка составляет "+ commissionBank +" "+ firstCurrency + RESET_COLOR);
+                accountService.transferMoney(id ,firstCurrency ,secondCurrency ,count+commissionBank);
                 waitRead();
                 break;
             case 6: //Просмотр истории операций

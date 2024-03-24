@@ -27,48 +27,20 @@ public class Main {
         userService.authorize("admin", "admin");
         System.out.println(userService.getAuthorizeUser());
         accountService.createAccount(0);
-        System.out.println(accountService.balance(0));
         currencyService.setCurrency("EUR", "EURO");
         currencyService.setCurrency("USD", "DOLLAR");
         currencyService.setCurrency("RUB", "RUBBLE");
-        System.out.println(currencyService.getAllCurrency());
-        //currencyService.setNewCurrencyRate("USD", 2.1);
-        System.out.println(currencyService.getAllCurrency());
+
         accountService.createAccount(1);
+        accountService.setCommission(1);
+        System.out.println(accountService.getAllAccounts());
+        accountService.cashDeposit(1,"USD",1000,OperationType.DEPOSIT);
+        accountService.transferMoney(1,"USD","EUR",100);
+        System.out.println(accountService.balance(0));
         System.out.println(accountService.balance(1));
-
-        accountService.cashDeposit(1,"EUR", 200.0, OperationType.DEPOSIT);
-        System.out.println(accountService.balance(1));
-
-
-        accountService.cashDeposit(1,"EUR", 100.0, OperationType.DEPOSIT);
-        System.out.println(accountService.balance(1));
-        accountService.createCurrencyAccount(1,"USD");
-        accountService.cashWithdraw(1,"EUR", 50.0, OperationType.CASH);
-        System.out.println(accountService.balance(1));
-        accountService.cashDeposit(1,"USD", 50.0, OperationType.DEPOSIT);
-        System.out.println(accountService.balance(1));
-        System.out.println(accountService.balance(1));
-        accountService.closeCurrencyAccount(1, "USD", false);
-        System.out.println(accountService.balance(1));
-        accountService.transferMoney(1,"EUR", "RUB",0);
-        accountService.cashDeposit(1,"USD", 50.0, OperationType.CASH);
-        accountService.transferMoney(1,"EUR","RUB",1);
-        System.out.println(accountService.balance(1));
-        accountService.transferMoney(1,"USD","RUB",1);
-        System.out.println(accountService.balance(1));
-        System.out.println(currencyService.getAllCurrency());
-        System.out.println("Ваш список операций");
-        ArrayList<Operation> toPrint= (accountService.getListOperations(1));
-        for (int i = 0; i < toPrint.size(); i++) {
-            System.out.println(toPrint.get(i));
-        }
-        System.out.println("Ваш список операций в Долларах");
         System.out.println(accountService.getListOperationsByCurrency("USD"));
-
-        loading();
         MenuStart menuStart = new MenuStart(accountService,currencyService , userService);
-        menuStart.run();
+        //menuStart.run();
 
     }
 

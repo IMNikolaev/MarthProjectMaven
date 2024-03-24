@@ -23,6 +23,12 @@ class ExchangeRateChange {
     public double getRate() {
         return rate;
     }
+
+    @Override
+    public String toString() {
+        return "Дата " + date +
+                " Курс " + rate;
+    }
 }
 
 public class ExchangeRateRepository {
@@ -51,7 +57,7 @@ public class ExchangeRateRepository {
     // Удаление курса валюты.
     public void removeRate(String currency) {
         exchangeRates.remove(currency);
-        exchangeRatesHistory.remove(currency); // Удаляем и историю изменений TODO А ЗАЧЕМ???
+        //exchangeRatesHistory.remove(currency); // Удаляем и историю изменений TODO А ЗАЧЕМ???
     }
 
     // Обновляем курсы валют, переданные в мапе

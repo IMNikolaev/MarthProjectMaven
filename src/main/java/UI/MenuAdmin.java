@@ -86,6 +86,7 @@ public class MenuAdmin {
                 waitRead();
                 break;
             case 3: // Удаление валюты
+                currencyService.removeRate(selectCurrency());
                 waitRead();
                 break;
             case 4: // Список доступных для обмена валют
@@ -97,7 +98,6 @@ public class MenuAdmin {
                 int userNummber = scanner.nextInt();
                 userService.blockUser(userNummber);
                 System.out.println("Пользователь с ID " + userNummber + " заблокирован");
-                // TODO БЛОК МЕТОД
                 waitRead();
                 break;
             case 6: // Просмотр истории операций пользователя
@@ -111,13 +111,14 @@ public class MenuAdmin {
                 waitRead();
                 break;
             case 8: // Просмотр истории курсов по валюте
-                //TODO НАПИСАТЬ!!!
+                currencyService.getRateHistory(selectCurrency());
                 waitRead();
                 break;
             case 9: // Добавить комиссию на операцию
+                System.out.println("Текущий процент комиссии = "+ accountService.getCommission());
                 System.out.println("Выберите процент комиссии");
                 int commission  = scanner.nextInt();
-                // TODO прикрутить комиссию
+                accountService.setCommission(commission);
                 waitRead();
                 break;
             default:

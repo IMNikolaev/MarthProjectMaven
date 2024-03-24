@@ -26,4 +26,12 @@ public class CurrencyRepository {
             }
         }
     }
+
+    public void removeRate(String currency) {
+        for (int i = 0; i < currencies.size(); i++) {
+            if (currencies.get(i).getCurrencyName().equals(currency)){
+                currencies.remove(i);
+            }
+        }
+    }
 }

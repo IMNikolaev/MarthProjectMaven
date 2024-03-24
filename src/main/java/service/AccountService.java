@@ -17,6 +17,15 @@ public class AccountService {
     private OperationRepository operationRepository;
     private ExchangeRateRepository exchangeRateRepository;
     private CurrencyRepository currencyRepository;
+    private int commission;
+
+    public int getCommission() {
+        return commission;
+    }
+
+    public void setCommission(int commission) {
+        this.commission = commission;
+    }
 
     public AccountService(AccountRepository accountRepository,
                           OperationRepository operationRepository,
@@ -85,12 +94,18 @@ public class AccountService {
         return -1;//Проблема с закрытием
     }
 
+    public ArrayList<Account> getAllAccounts(){
+        return accountRepository.getAccounts();
+    }
+
     public boolean transferMoney(long id, String currencyFrom,String currencyTo,double count){ //Перевести деньги
         double exchangeRateFrom = exchangeRateRepository.getRate(currencyFrom);
         double exchangeRateTo = (1/exchangeRateFrom) * exchangeRateRepository.getRate(currencyTo);
-        if (accountRepository.transferMoney(id,currencyFrom,currencyTo,count,exchangeRateTo)){
+        double commissionBank = (count/100)*commission;
+        if (accountRepository.transferMoney(id,currencyFrom,currencyTo,(count-commissionBank) ,exchangeRateTo)){
             cashWithdraw(id,currencyFrom,count,OperationType.TRANSFER);
             cashDeposit(id,currencyTo,(count*exchangeRateTo), OperationType.DEPOSIT);
+            cashDeposit(0,currencyFrom,commissionBank,OperationType.DEPOSIT);
             return true;
         }
         return false;

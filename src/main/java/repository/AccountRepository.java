@@ -8,6 +8,14 @@ import java.util.Map;
 public class AccountRepository {
     private ArrayList<Account> accounts = null;
 
+    public ArrayList<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(ArrayList<Account> accounts) {
+        this.accounts = accounts;
+    }
+
     public AccountRepository(){
         this.accounts= new ArrayList<>();
     }
@@ -88,8 +96,8 @@ public class AccountRepository {
                     return true;
                 }
             }
-            else return false;
         }
         return false;
     }
+
 }

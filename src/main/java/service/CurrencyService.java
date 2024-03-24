@@ -32,5 +32,12 @@ public class CurrencyService {
 
     public void setNewCurrencyRate(String currency, double currencyRate) {
         currencyRepository.setNewCurrencyRate(currency,currencyRate);
+        exchangeRateRepository.setRate(currency,currencyRate);
+    }
+    public ArrayList getRateHistory (String currency){
+        return (ArrayList) exchangeRateRepository.getRateHistory(currency);
+    }
+    public void removeRate(String currency){
+        currencyRepository.removeRate(currency);
     }
 }

@@ -45,4 +45,12 @@ public class Account {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id=" + id +
+                ", accounts=" + accounts +
+                '}';
+    }
 }
