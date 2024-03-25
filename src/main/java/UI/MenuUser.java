@@ -90,8 +90,11 @@ public class MenuUser {
                 waitRead();
                 break;
             case 3: //Снятие средств со счета
-                accountService.cashWithdraw(id,selectCurrency(),selectCount(),OperationType.CASH);
-                waitRead();
+                if (accountService.cashWithdraw(id, selectCurrency(), selectCount(), OperationType.CASH)) {
+                    waitRead();
+                } else {
+                    System.out.println(COLOR_RED + "Недостаточно средств" + RESET_COLOR); waitRead();
+                }
                 break;
             case 4: //Открытие нового счета в выбранной валюте
                 String currency = selectCurrency();
@@ -103,8 +106,9 @@ public class MenuUser {
                 String secondCurrency = selectCurrency();
                 double count = selectCount();
                 double commissionBank = (count/100)*accountService.getCommission();
-                System.out.println(COLOR_RED + "Внимание комиссия банка составляет "+ commissionBank +" "+ firstCurrency + RESET_COLOR);
+                System.out.println(COLOR_RED + "Внимание комиссия банка составляет " + commissionBank + " " + firstCurrency + RESET_COLOR);
                 accountService.transferMoney(id ,firstCurrency ,secondCurrency ,count+commissionBank);
+                System.out.println(accountService.balance(id));
                 waitRead();
                 break;
             case 6: //Просмотр истории операций
@@ -117,7 +121,7 @@ public class MenuUser {
                     System.out.println(COLOR_RED + "На выбранном счету есть деньги!" + RESET_COLOR);
                     System.out.println(COLOR_RED + "Закрыть всё равно? (Выберете)" + RESET_COLOR);
                     System.out.println(COLOR_RED + "1. Закрыть (средства будут переведены на Euro счет)" + RESET_COLOR);
-                    System.out.println(COLOR_RED + "2. Оставить счет)" + RESET_COLOR);
+                    System.out.println(COLOR_RED + "2. Оставить счет" + RESET_COLOR);
                     int inpt = scanner.nextInt();
                     switch (inpt){
                         case 1:
@@ -134,7 +138,10 @@ public class MenuUser {
                 }
                 break;
             case 8: //Просмотр истории курсов по валюте
-
+                ArrayList<Currency> currencies = currencyService.getAllCurrency();
+                for (int i = 0; i < currencies.size(); i++) {
+                    System.out.println(currencies.get(i).getCurrencyName());
+                }
                 System.out.println("Введите сокращенное имя валюты");
                 String name = scanner.nextLine();
                 System.out.println(currencyService.getRateHistory(name));

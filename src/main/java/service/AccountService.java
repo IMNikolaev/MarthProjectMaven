@@ -39,7 +39,6 @@ public class AccountService {
 
     public Map<String,Double> balance (long userId){ //Вывести баланс по всем счетам
         return accountRepository.getBalance(userId);
-
     }
 
     public void createAccount (long id){ //Создать новый банковский аккаунт
@@ -87,7 +86,7 @@ public class AccountService {
         else if (result == -2) return -1; //Проблема с закрытием
         else if(result >0){
             cashWithdraw(id,currency, result, OperationType.DEBIT);
-            cashDeposit(id,"EUR", result * exchangeRate, OperationType.DEPOSIT);
+            cashDeposit(id,"EUR", result / exchangeRate, OperationType.DEPOSIT);
             accountRepository.closeCurrencyAccount(id,currency,isReady,exchangeRate);
             return 0; //Закрыт
         }

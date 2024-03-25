@@ -23,9 +23,7 @@ public class Main {
         AccountService accountService = new AccountService(accountRepository,operationRepository, exchangeRateRepository,currencyRepository);
 
         userRepository.createAdmin("admin","admin");
-        System.out.println(userService.getAllUsers());
         userService.authorize("admin", "admin");
-        System.out.println(userService.getAuthorizeUser());
         accountService.createAccount(0);
         currencyService.setCurrency("EUR", "EURO");
         currencyService.setCurrency("USD", "DOLLAR");

@@ -77,13 +77,16 @@ public class MenuAdmin {
         System.out.println("==========================================");
         switch (input) {
             case 1: // Изменение курса валюты
-                currencyService.setNewCurrencyRate(selectCurrency(),selectCount());
+                String currencyName = selectCurrency();
+                System.out.println("Введите новый курс");
+                double newRate = scanner.nextDouble();
+                currencyService.setNewCurrencyRate(currencyName,newRate);
                 waitRead();
                 break;
             case 2: // Добавление валюты
                 System.out.println("Введите сокращенное имя валюты");
                 String name = scanner.nextLine();
-                System.out.println("Введите полное имя валюты");
+                System.out.println("Введите полное имя валюты в формате 0,0");
                 String fullName = scanner.nextLine();
                 currencyService.setCurrency(name,fullName);
                 waitRead();
@@ -107,7 +110,6 @@ public class MenuAdmin {
                 System.out.println(userService.getAllUsers());
                 long userNum = scanner.nextLong();
                 System.out.println(accountService.getListOperations(userNum));
-                waitRead();
                 waitRead();
                 break;
             case 7: // Просмотр статистики операций по валюте

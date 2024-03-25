@@ -81,7 +81,6 @@ public class MenuStart {
                             userService.activeUserFalse();
                             run();
                         }
-                        System.out.println(userService.getAuthorizeUser());
                         MenuUser menuUser = new MenuUser(accountService,currencyService,userService,userService.getAuthorizeUser().getId());
                         menuUser.menuUserStart();
                     }
@@ -99,9 +98,6 @@ public class MenuStart {
                 System.out.println(COLOR_GREEN + "Введи Ваш пароль:" + RESET_COLOR);
                 String passwordNew = scanner.nextLine();
                 User user = userService.registerUser(emailNew,passwordNew);
-                System.out.println(userService.getAllUsers());
-                System.out.println(user);
-                System.out.println(user.getId());
                 accountService.createAccount(user.getId());
                 break;
 
