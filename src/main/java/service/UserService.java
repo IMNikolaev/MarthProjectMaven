@@ -32,13 +32,7 @@ public class UserService {
         return userRepository.isAuthorized(email, password);
     }
 
-
-    public void removeUserById(long userId) {
-        userRepository.removeUserById(userId);
-    }
-
     public void  blockUser(Integer blockedUserId){
         userRepository.blockUserById(blockedUserId);
     }
-
 }

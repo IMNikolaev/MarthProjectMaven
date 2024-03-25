@@ -34,9 +34,8 @@ class ExchangeRateChange {
 
 public class ExchangeRateRepository {
     // мапа ключ - код валюты, значение - курс к базе евро.
-    private Map<String, Double> exchangeRates;
-    // История изменений курсов валют
-    private Map<String, List<ExchangeRateChange>> exchangeRatesHistory;
+    private Map<String, Double> exchangeRates; // История изменений курсов валют
+    private Map<String, List<ExchangeRateChange>> exchangeRatesHistory; //TODO Вдруг смогу допишу чтение и запись
     private File file;
 
     public ExchangeRateRepository(File file) {
@@ -92,7 +91,7 @@ public class ExchangeRateRepository {
     // Удаление курса валюты.
     public void removeRate(String currency) {
         exchangeRates.remove(currency);
-        //exchangeRatesHistory.remove(currency); // Удаляем и историю изменений TODO А ЗАЧЕМ???
+        //exchangeRatesHistory.remove(currency); // Удаляем и историю изменений
     }
 
     // Обновляем курсы валют, переданные в мапе

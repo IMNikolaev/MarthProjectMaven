@@ -48,9 +48,16 @@ public class Account {
 
     @Override
     public String toString() {
-        return "Account{" +
-                "id=" + id +
-                ", accounts=" + accounts +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("Пользователь ").append(id).append(": ");
+        sb.append(", счёт ").append("[");
+        for (Map.Entry<String, Double> entry : accounts.entrySet()) {
+            sb.append(entry.getKey()).append(" ").append(String.format("%.2f", entry.getValue())).append(". ");
+        }
+        if (!accounts.isEmpty()) {
+            sb.setLength(sb.length() - 2); // Удаление последней точки и пробела
+        }
+        sb.append("]");
+        return sb.toString();
     }
 }

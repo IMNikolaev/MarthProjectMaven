@@ -2,7 +2,10 @@ package repository;
 
 import model.Account;
 
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class AccountRepository {
@@ -24,13 +27,30 @@ public class AccountRepository {
         accounts.add(account);
     }
 
-    public Map<String,Double> getBalance(long userId) {
+    public Map<String, Double> getBalance(long userId) {
         for (int i = 0; i < accounts.size(); i++) {
-            if(accounts.get(i).getId()==userId){
-                return accounts.get(i).getAccounts();
+            if(accounts.get(i).getId() == userId){
+                Map<String, Double> balance = accounts.get(i).getAccounts();
+                Map<String, Double> formattedBalance = new HashMap<>();
+
+                DecimalFormat df = new DecimalFormat("#.##");
+
+                for (Map.Entry<String, Double> entry : balance.entrySet()) {
+                    String currency = entry.getKey();
+                    double amount = entry.getValue();
+                    String formattedAmount = df.format(amount);
+
+                    try {
+                        formattedBalance.put(currency, df.parse(formattedAmount).doubleValue());
+                    } catch (ParseException e) {
+                        // Обработка ошибки
+                        e.printStackTrace();
+                    }
+                }
+                return formattedBalance;
             }
         }
-        return null;//СДЕЛАТЬ ОШИБКОЙ!!!
+        return null;
     }
 
     public boolean cashDeposit(long id, String currency, double count) {
