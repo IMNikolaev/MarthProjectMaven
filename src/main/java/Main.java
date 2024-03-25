@@ -7,17 +7,20 @@ import service.AccountService;
 import service.CurrencyService;
 import service.UserService;
 
+import java.io.File;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
+        File file = new File("src/main/java/DB/ExchangeRate.txt");
+
         CurrencyAPI currencyAPI = new CurrencyAPI();
         UserRepository userRepository = new UserRepository();
         UserService userService = new UserService(userRepository);
         AccountRepository accountRepository = new AccountRepository();
         OperationRepository operationRepository = new OperationRepository();
-        ExchangeRateRepository exchangeRateRepository = new ExchangeRateRepository();
+        ExchangeRateRepository exchangeRateRepository = new ExchangeRateRepository(file);
         CurrencyRepository currencyRepository = new CurrencyRepository();
         CurrencyService currencyService = new CurrencyService(currencyRepository,currencyAPI,exchangeRateRepository);
         AccountService accountService = new AccountService(accountRepository,operationRepository, exchangeRateRepository,currencyRepository);

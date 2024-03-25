@@ -1,5 +1,6 @@
 package repository;
 
+import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,10 +37,43 @@ public class ExchangeRateRepository {
     private Map<String, Double> exchangeRates;
     // История изменений курсов валют
     private Map<String, List<ExchangeRateChange>> exchangeRatesHistory;
+    private File file;
 
-    public ExchangeRateRepository() {
+    public ExchangeRateRepository(File file) {
         this.exchangeRates = new HashMap<>();
         this.exchangeRatesHistory = new HashMap<>();
+        this.file = file;
+
+        if (file.exists()){
+            ratesFormFile();
+        }
+    }
+
+    private void ratesFormFile() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))){
+            String line;
+            while ((line = reader.readLine()) != null){
+                String[] parts = line.split(":");
+                if (parts.length ==2){
+                    String currency = parts[0];
+                    Double rate = Double.parseDouble(parts[1]);
+                    exchangeRates.put(currency, rate);
+                }
+            }
+        }
+        catch (IOException e){
+        }
+    }
+
+    private void ratesToFile (){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))){
+            for (Map.Entry<String, Double> entry : exchangeRates.entrySet()){
+                writer.write(entry.getKey()+ ":"+ entry.getValue());
+                writer.newLine();
+            }
+        }
+        catch (IOException e){
+        }
     }
 
     // Инициализация начальных курсов
@@ -52,6 +86,7 @@ public class ExchangeRateRepository {
     public void setRate(String currency, double rate) {
         exchangeRates.put(currency, rate);
         trackRateChange(currency, rate); // Отслеживаем изменение курса
+        ratesToFile();
     }
 
     // Удаление курса валюты.
