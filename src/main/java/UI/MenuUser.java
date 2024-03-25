@@ -94,7 +94,8 @@ public class MenuUser {
                 waitRead();
                 break;
             case 4: //Открытие нового счета в выбранной валюте
-                accountService.createCurrencyAccount(id,selectCurrency());
+                String currency = selectCurrency();
+                accountService.createCurrencyAccount(id,currency);
                 waitRead();
                 break;
             case 5: //Обмен валюты (перевод между своими счетами)
@@ -111,7 +112,8 @@ public class MenuUser {
                 waitRead();
                 break;
             case 7: //Закрытие счета в выбранной валюте
-                if (accountService.closeCurrencyAccount(id,selectCurrency(),false) ==1){
+                String closedCurrency = selectCurrency();
+                if (accountService.closeCurrencyAccount(id,closedCurrency,false) ==1){
                     System.out.println(COLOR_RED + "На выбранном счету есть деньги!" + RESET_COLOR);
                     System.out.println(COLOR_RED + "Закрыть всё равно? (Выберете)" + RESET_COLOR);
                     System.out.println(COLOR_RED + "1. Закрыть (средства будут переведены на Euro счет)" + RESET_COLOR);
@@ -119,7 +121,7 @@ public class MenuUser {
                     int inpt = scanner.nextInt();
                     switch (inpt){
                         case 1:
-                            accountService.closeCurrencyAccount(id,selectCurrency(),true);
+                            accountService.closeCurrencyAccount(id,closedCurrency,true);
                             System.out.println(COLOR_YELLOW + "Аккаунт успешно закрыт" + RESET_COLOR);
                             waitRead();
                             break;
@@ -130,9 +132,12 @@ public class MenuUser {
                             waitRead();
                     }
                 }
-                waitRead();
                 break;
             case 8: //Просмотр истории курсов по валюте
+
+                System.out.println("Введите сокращенное имя валюты");
+                String name = scanner.nextLine();
+                System.out.println(currencyService.getRateHistory(name));
                 waitRead();
                 break;
             case 99:
@@ -165,9 +170,8 @@ public class MenuUser {
             return currency;
             }
         }
-        System.out.println(COLOR_RED + "Неверный ввод. Пожалуйста, выберите доступную валюту." + RESET_COLOR);
-        selectCurrency();
-        return null;
+        System.out.println(COLOR_RED + "Неверный ввод. Выбрана дефолтная валюта (EUR)" + RESET_COLOR);
+        return "EUR";
         }
     private double selectCount (){
         Scanner scanner = new Scanner(System.in);

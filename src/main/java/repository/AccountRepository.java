@@ -54,16 +54,16 @@ public class AccountRepository {
 
     public boolean createCurrencyAccount(long id, String newCurrency) {
         for (int i = 0; i < accounts.size(); i++) {
-            if(accounts.get(i).getId()==id){
-                if (accounts.get(i).getAccounts().containsKey(newCurrency)){
-                    return false;//выкидывать ошибкой)
-                }
-                else {
-                    accounts.get(i).setAccounts(newCurrency,0.0);
+            if (accounts.get(i).getId() == id) {
+                if (accounts.get(i).getAccounts().containsKey(newCurrency)) {
+                    return false; // Счет с такой валютой уже существует, возвращаем false
+                } else {
+                    accounts.get(i).getAccounts().put(newCurrency, 0.0); // Обновляем список счетов для пользователя
+                    return true; // Счет успешно создан, возвращаем true
                 }
             }
         }
-        return false;
+        return false; // Счет с указанным ID не найден, возвращаем false
     }
 
     public double closeCurrencyAccount(long id, String currency, boolean isReady, double exchangeRate) {

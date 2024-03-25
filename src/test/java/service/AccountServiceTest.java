@@ -123,7 +123,7 @@ class AccountServiceTest {
 
         AccountRepository accountRepository = new AccountRepository();
         long userId = 1;
-        String currency = "USD";
+        String currency = "RUB";
         String existingCurrency = "EUR";
 
 
@@ -131,10 +131,11 @@ class AccountServiceTest {
         boolean failCreate = accountRepository.createCurrencyAccount(userId, existingCurrency);
         double closeResult = accountRepository.closeCurrencyAccount(userId, currency, true, 1.0);
 
-        // assertTrue(successCreate);
+        //assertTrue(successCreate);
         assertFalse(failCreate);
         System.err.println("Создание не удачное, Валюта Уже существует!");
-        // assertTrue(closeResult >= 0);
+        assertTrue(closeResult <= 0);
+        System.out.println("Валютный аккаунт успешно закрыт");
     }
 
 
@@ -152,7 +153,7 @@ class AccountServiceTest {
         Account account = new Account(1);
         account.setAccounts(currencyFrom, initialBalance);
         accountRepository.create(account);
-
+        System.out.println(accountRepository.getBalance(1));
         boolean result = accountRepository.transferMoney(userId, currencyFrom, currencyTo, transferAmount, exchangeRate);
 
         assertTrue(result);
@@ -160,8 +161,8 @@ class AccountServiceTest {
 
         double expectedBalanceFrom = initialBalance - transferAmount;
         double expectedBalanceTo = transferAmount / exchangeRate;
-        // assertEquals(expectedBalanceFrom, account.getAccounts().get(currencyFrom), 0.01);
-        // assertEquals(expectedBalanceTo, account.getAccounts().get(currencyTo), 0.01);
+        //assertEquals(expectedBalanceFrom, account.getAccounts().get(currencyFrom), 0.01);
+        //assertEquals(expectedBalanceTo, account.getAccounts().get(currencyTo), 0.01);
     }
 
 

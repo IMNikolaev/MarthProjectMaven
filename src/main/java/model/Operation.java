@@ -2,6 +2,7 @@ package model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -77,8 +78,22 @@ public class Operation {
 
     @Override
     public String toString() {
-        return  type +
-                "  " + operationSum +
-                " " + operationCurrency + operationDate;
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<LocalDate, LocalTime> entry : operationDate.entrySet()) {
+            LocalDate date = entry.getKey();
+            LocalTime time = entry.getValue();
+
+
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+
+            String formattedDate = date.format(dateFormatter);
+            String formattedTime = time.format(timeFormatter);
+
+
+            sb.append(type).append(" ").append(operationSum).append(" ").append(operationCurrency)
+                    .append(" ").append(formattedDate).append(" ").append(formattedTime).append("\n");
+        }
+        return sb.toString();
     }
 }

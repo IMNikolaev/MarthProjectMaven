@@ -122,14 +122,12 @@ public class UserRepository {
     }
 
     public void blockUserById(Integer blockedUserId) {
-        User user = null;
         for (int i = 0; i < users.size(); i++) {
             if (users.get(i).getId() == blockedUserId) {
-                user = users.get(i);
-                break;
+                users.get(i).setRole(Role.BLOCKED);
+            }
             }
         }
-    }
 
     @Override
     public String toString() {

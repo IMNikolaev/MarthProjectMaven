@@ -81,8 +81,11 @@ public class MenuAdmin {
                 waitRead();
                 break;
             case 2: // Добавление валюты
+                System.out.println("Введите сокращенное имя валюты");
+                String name = scanner.nextLine();
+                System.out.println("Введите полное имя валюты");
                 String fullName = scanner.nextLine();
-                currencyService.setCurrency(selectCurrency(),fullName);
+                currencyService.setCurrency(name,fullName);
                 waitRead();
                 break;
             case 3: // Удаление валюты
@@ -100,18 +103,19 @@ public class MenuAdmin {
                 System.out.println("Пользователь с ID " + userNummber + " заблокирован");
                 waitRead();
                 break;
-            case 6: // Просмотр истории операций пользователя
+            case 6: // Просмотр истории операций пользователя //
                 System.out.println(userService.getAllUsers());
-                int userNum = scanner.nextInt();
-                accountService.getListOperations(userNum);
+                long userNum = scanner.nextLong();
+                System.out.println(accountService.getListOperations(userNum));
+                waitRead();
                 waitRead();
                 break;
             case 7: // Просмотр статистики операций по валюте
-                accountService.getListOperationsByCurrency(selectCurrency());
+                System.out.println(accountService.getListOperationsByCurrency(selectCurrency()));
                 waitRead();
                 break;
             case 8: // Просмотр истории курсов по валюте
-                currencyService.getRateHistory(selectCurrency());
+                System.out.println(currencyService.getRateHistory(selectCurrency()));
                 waitRead();
                 break;
             case 9: // Добавить комиссию на операцию

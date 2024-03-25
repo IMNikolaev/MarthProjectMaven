@@ -31,17 +31,8 @@ public class Main {
         currencyService.setCurrency("USD", "DOLLAR");
         currencyService.setCurrency("RUB", "RUBBLE");
 
-        accountService.createAccount(1);
-        accountService.setCommission(1);
-        System.out.println(accountService.getAllAccounts());
-        accountService.cashDeposit(1,"USD",1000,OperationType.DEPOSIT);
-        accountService.transferMoney(1,"USD","EUR",100);
-        System.out.println(accountService.balance(0));
-        System.out.println(accountService.balance(1));
-        System.out.println(accountService.getListOperationsByCurrency("USD"));
         MenuStart menuStart = new MenuStart(accountService,currencyService , userService);
-        //menuStart.run();
-
+        menuStart.run();
     }
 
 

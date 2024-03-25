@@ -11,7 +11,7 @@ class ExchangeRateChange {
     private LocalDate date;
     private double rate;
 
-    public ExchangeRateChange(LocalDate date, double rate) {// TODO ЭТО ВООБЩЕ ЧТО???
+    public ExchangeRateChange(LocalDate date, double rate) {
         this.date = date;
         this.rate = rate;
     }
