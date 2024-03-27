@@ -1,19 +1,19 @@
 import UI.MenuStart;
 import api.CurrencyAPI;
-import model.Operation;
-import model.OperationType;
+
 import repository.*;
 import service.AccountService;
 import service.CurrencyService;
 import service.UserService;
-
 import java.io.File;
 import java.time.LocalTime;
-import java.util.ArrayList;
+
 
 public class Main {
+
     public static void main(String[] args) {
         File file = new File("src/main/java/DB/ExchangeRate.txt");
+
 
         CurrencyAPI currencyAPI = new CurrencyAPI();
         UserRepository userRepository = new UserRepository();
@@ -31,7 +31,7 @@ public class Main {
         currencyService.setCurrency("EUR", "EURO");
         currencyService.setCurrency("USD", "DOLLAR");
         currencyService.setCurrency("RUB", "RUBBLE");
-
+        loading();
         MenuStart menuStart = new MenuStart(accountService,currencyService , userService);
         menuStart.run();
     }
@@ -42,7 +42,6 @@ public class Main {
             for (int i = 0; i < 50; ++i) System.out.println();
         }
     public static void loading() {
-        for (int i = 0; i < 50; ++i) System.out.println();
         LocalTime nightStop = LocalTime.of(4,0);
         LocalTime morning = LocalTime.of(11,0);
         LocalTime midDay = LocalTime.of(16,0);
@@ -59,9 +58,8 @@ public class Main {
         }else if (localTime.isAfter(evening)) {
             System.out.println("Доброй ночи");
         }
-        for (int i = 0; i < 10; ++i) System.out.println();
         try {
-            Thread.sleep(3000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

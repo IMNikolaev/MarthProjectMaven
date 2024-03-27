@@ -1,17 +1,9 @@
 package repository;
 
-import exception.EmailValidateException;
-import exception.PasswordValidateException;
+
 import model.Role;
 import model.User;
-import validators.EmailValidator;
-import validators.PasswordValidator;
-
-
 import java.util.ArrayList;
-
-import java.util.Iterator;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class UserRepository {

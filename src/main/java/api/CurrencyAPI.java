@@ -6,6 +6,7 @@ import okhttp3.Response;
 import org.json.JSONObject;
 import java.io.IOException;
 
+
 public class CurrencyAPI {
 
     public Double getCurrencyByName(String currency) {

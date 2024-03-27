@@ -80,6 +80,10 @@ public class MenuAdmin {
                 String currencyName = selectCurrency();
                 System.out.println("Введите новый курс");
                 double newRate = scanner.nextDouble();
+                if (currencyName.equals("EUR")){
+                System.out.println("Так нельзя!");
+                break;
+            }
                 currencyService.setNewCurrencyRate(currencyName,newRate);
                 waitRead();
                 break;

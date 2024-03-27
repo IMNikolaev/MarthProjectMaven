@@ -35,7 +35,7 @@ class ExchangeRateChange {
 public class ExchangeRateRepository {
     // мапа ключ - код валюты, значение - курс к базе евро.
     private Map<String, Double> exchangeRates; // История изменений курсов валют
-    private Map<String, List<ExchangeRateChange>> exchangeRatesHistory; //TODO Вдруг смогу допишу чтение и запись
+    private Map<String, List<ExchangeRateChange>> exchangeRatesHistory;
     private File file;
 
     public ExchangeRateRepository(File file) {

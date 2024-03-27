@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import repository.*;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AccountServiceTest {
     private TestOutputHelper testOutputHelper;
+    File file = new File("src/main/java/DB/ExchangeRate.txt");
 
     @BeforeEach
     public void setUp() {
@@ -48,7 +50,7 @@ class AccountServiceTest {
 
         AccountService accountService = new AccountService(accountRepository,
                 new OperationRepository(),
-                new ExchangeRateRepository(),
+                new ExchangeRateRepository(file),
                 new CurrencyRepository());
 
         // проверка успешного депозита
@@ -99,7 +101,7 @@ class AccountServiceTest {
         accountRepositoryStub.create(account);
 
         OperationRepository operationRepositoryStub = new OperationRepository();
-        ExchangeRateRepository exchangeRateRepositoryStub = new ExchangeRateRepository();
+        ExchangeRateRepository exchangeRateRepositoryStub = new ExchangeRateRepository(file);
         CurrencyRepository currencyRepositoryStub = new CurrencyRepository();
 
         AccountService accountService = new AccountService(accountRepositoryStub,
@@ -273,18 +275,18 @@ class AccountServiceTest {
 
     @Test // testGetRate_DefaultRate
     public void testGetRate_DefaultRate() {
-        ExchangeRateRepository repository = new ExchangeRateRepository();
+        ExchangeRateRepository repository = new ExchangeRateRepository(file);
 
-        double rate = repository.getRate("USD");
+        double rate = repository.getRate("EUR");
 
-        assertEquals(0.0, rate);
+        assertEquals(1.0, rate);
         System.out.println("Default rate should be 0.0, ТЕСТ пройден");
     }
 
     @Test //testSetRate
     public void testSetRate() {
 
-        ExchangeRateRepository repository = new ExchangeRateRepository();
+        ExchangeRateRepository repository = new ExchangeRateRepository(file);
 
         repository.setRate("EUR", 1.2);
 
@@ -295,7 +297,7 @@ class AccountServiceTest {
     @Test //testRemoveRate
     public void testRemoveRate() {
 
-        ExchangeRateRepository repository = new ExchangeRateRepository();
+        ExchangeRateRepository repository = new ExchangeRateRepository(file);
         repository.setRate("EUR", 1.2);
 
         repository.removeRate("EUR");
@@ -307,7 +309,7 @@ class AccountServiceTest {
     @Test // testUpdateRates
     public void testUpdateRates() {
         // Arrange
-        ExchangeRateRepository repository = new ExchangeRateRepository();
+        ExchangeRateRepository repository = new ExchangeRateRepository(file);
         repository.setRate("EUR", 1.2);
         repository.setRate("USD", 1.0);
 
